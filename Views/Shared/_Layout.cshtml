@@ -1,0 +1,176 @@
+﻿
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>@ViewBag.Title - My ASP.NET Application</title>
+        @* Design: Corporate & Professional Blue — Poppins *@
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+        @Scripts.Render("~/bundles/modernizr")
+        <style>
+            *, *::before, *::after {
+                box-sizing: border-box;
+            }
+
+            /* Global */
+            html, body {
+                font-family: 'Poppins', sans-serif !important;
+                background: #f0f4f9;
+                color: #1a2b4a;
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Navbar */
+            nav.navbar {
+                background: #0a2e6e !important;
+                border-bottom: 3px solid #1565c0;
+                padding: 0;
+            }
+
+                nav.navbar .container {
+                    display: flex;
+                    align-items: center;
+                    padding: 0 24px;
+                    min-height: 58px;
+                }
+
+                nav.navbar .navbar-brand {
+                    font-family: 'Poppins', sans-serif !important;
+                    font-size: 17px;
+                    font-weight: 700;
+                    color: #ffffff !important;
+                    text-decoration: none;
+                    text-transform: uppercase;
+                    letter-spacing: 0.07em;
+                    margin-right: 32px;
+                    padding: 0;
+                }
+
+                    nav.navbar .navbar-brand:hover {
+                        color: #93c5fd !important;
+                    }
+
+                nav.navbar .navbar-nav {
+                    list-style: none;
+                    margin: 0;
+                    padding: 0;
+                    display: flex;
+                    gap: 4px;
+                }
+
+                    nav.navbar .navbar-nav li {
+                        margin: 0;
+                    }
+
+                    nav.navbar .navbar-nav .nav-link {
+                        font-family: 'Poppins', sans-serif !important;
+                        font-size: 13px;
+                        font-weight: 500;
+                        color: rgba(255,255,255,0.78) !important;
+                        text-decoration: none;
+                        text-transform: uppercase;
+                        letter-spacing: 0.05em;
+                        padding: 6px 14px;
+                        border-radius: 3px;
+                        transition: background 0.15s, color 0.15s;
+                    }
+
+                        nav.navbar .navbar-nav .nav-link:hover {
+                            background: rgba(255,255,255,0.1);
+                            color: #ffffff !important;
+                        }
+
+                nav.navbar .navbar-toggler {
+                    border: 1px solid rgba(255,255,255,0.3);
+                    padding: 5px 10px;
+                    border-radius: 3px;
+                    background: transparent;
+                    cursor: pointer;
+                }
+
+            /* Page wrapper */
+            div.container.body-content {
+                max-width: 1140px;
+                margin: 32px auto;
+                padding: 0 24px;
+            }
+
+                /* Divider */
+                div.container.body-content hr {
+                    border: none;
+                    border-top: 1px solid #d0d9e8;
+                    margin: 40px 0 16px;
+                }
+
+                /* Footer */
+                div.container.body-content footer {
+                    text-align: center;
+                    padding: 12px 0 24px;
+                }
+
+                    div.container.body-content footer p {
+                        font-size: 12px;
+                        font-weight: 400;
+                        color: #7a90b0 !important;
+                        margin: 0;
+                        letter-spacing: 0.03em;
+                    }
+
+            /* jQuery UI autocomplete */
+            .ui-autocomplete {
+                font-family: 'Poppins', sans-serif !important;
+                font-size: 13px;
+                border: 1px solid #c4d2e8;
+                border-radius: 3px;
+                box-shadow: 0 4px 12px rgba(10,46,110,0.1);
+            }
+
+            .ui-menu-item-wrapper {
+                padding: 8px 14px !important;
+                color: #1a2b4a !important;
+            }
+
+                .ui-menu-item-wrapper.ui-state-active {
+                    background: #1565c0 !important;
+                    color: #fff !important;
+                    border: none !important;
+                }
+        </style>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+            <div class="container">
+                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            </footer>
+        </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+        @Scripts.Render("~/bundles/jquery")
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+        @Scripts.Render("~/bundles/bootstrap")
+    </body>
+</html>

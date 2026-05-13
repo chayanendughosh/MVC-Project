@@ -1,0 +1,148 @@
+@* Design: Corporate & Professional Blue — Poppins *@
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+    #detailsModal * {
+        font-family: 'Poppins', sans-serif !important;
+        box-sizing: border-box;
+    }
+
+    #detailsModal .modal-content {
+        border: none;
+        border-radius: 4px;
+        overflow: hidden;
+        box-shadow: 0 8px 32px rgba(10,46,110,0.18);
+    }
+
+    #detailsModal .modal-header {
+        background: #0a2e6e;
+        padding: 16px 24px;
+        border-bottom: none;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    #detailsModal .modal-title {
+        color: #fff !important;
+        font-size: 15px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        margin: 0;
+    }
+
+    #detailsModal .close, #detailsModal button.close {
+        color: rgba(255,255,255,0.75) !important;
+        background: transparent;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+        line-height: 1;
+        opacity: 1;
+    }
+
+        #detailsModal .close:hover {
+            color: #fff !important;
+        }
+
+    #detailsModal .modal-body {
+        padding: 24px 28px;
+        background: #fff;
+    }
+
+    #detailsModal dl.row {
+        margin: 0;
+    }
+
+        #detailsModal dl.row dt {
+            font-size: 11px;
+            font-weight: 600;
+            color: #1565c0 !important;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            padding: 8px 0;
+            border-bottom: 1px solid #e4eaf3;
+        }
+
+        #detailsModal dl.row dd {
+            font-size: 14px;
+            color: #334d6e !important;
+            padding: 8px 0;
+            border-bottom: 1px solid #e4eaf3;
+            margin: 0;
+        }
+
+            #detailsModal dl.row dt:last-of-type,
+            #detailsModal dl.row dd:last-of-type {
+                border-bottom: none;
+            }
+
+    #detailsModal .modal-footer {
+        background: #f5f7fa;
+        border-top: 1px solid #d0d9e8;
+        padding: 14px 24px;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+        #detailsModal .modal-footer button {
+            background: #1565c0;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            padding: 9px 24px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+            #detailsModal .modal-footer button:hover {
+                background: #0d47a1;
+            }
+</style>
+
+@model WebApplication1.Models.User
+
+<div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailsModalLabel">User Details</h5>
+                <button type="button" class="close" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <dl class="row">
+                    <dt class="col-sm-3">Name</dt>
+                    <dd class="col-sm-9">@Model.Name</dd>
+
+                    <dt class="col-sm-3">Email</dt>
+                    <dd class="col-sm-9">@Model.Email</dd>
+
+                    <dt class="col-sm-3">Mobile</dt>
+                    <dd class="col-sm-9">@Model.Mobile</dd>
+
+                    <dt class="col-sm-3">Address</dt>
+                    <dd class="col-sm-9">@Model.Address</dd>
+
+                    <dt class="col-sm-3">Gender</dt>
+                    <dd class="col-sm-9">@Model.Gender</dd>
+
+                    <dt class="col-sm-3">State</dt>
+                    <dd class="col-sm-9">@(Model.State != null ? Model.State.Name : "")</dd>
+
+                    <dt class="col-sm-3">Hobbies</dt>
+                    <dd class="col-sm-9">@Model.Hobbies</dd>
+                </dl>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

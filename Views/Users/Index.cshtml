@@ -1,0 +1,214 @@
+@* Design: Corporate & Professional Blue — Poppins *@
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+    *, *::before, *::after {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif !important;
+        background: #f0f4f9;
+        color: #1a2b4a;
+        margin: 0;
+        padding: 24px 32px;
+    }
+
+    h2 {
+        font-size: 26px;
+        font-weight: 700;
+        color: #0a2e6e !important;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        border-left: 5px solid #1565c0;
+        padding-left: 14px;
+        margin: 0 0 20px;
+    }
+
+    #btnCreate {
+        display: inline-block;
+        background: #1565c0;
+        color: #fff !important;
+        text-decoration: none;
+        padding: 9px 22px;
+        border-radius: 3px;
+        font-size: 13px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 20px;
+        transition: background 0.2s;
+    }
+
+        #btnCreate:hover {
+            background: #0d47a1;
+        }
+
+    #usersTable {
+        width: 100%;
+        border-collapse: collapse;
+        background: #fff;
+        border: 1px solid #d0d9e8;
+        font-size: 14px;
+    }
+
+        #usersTable thead tr {
+            background: #0a2e6e;
+            color: #fff;
+        }
+
+        #usersTable thead th {
+            padding: 13px 16px;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            border: none;
+            text-align: left;
+        }
+
+        #usersTable tbody tr {
+            border-bottom: 1px solid #e4eaf3;
+            transition: background 0.15s;
+        }
+
+            #usersTable tbody tr:last-child {
+                border-bottom: none;
+            }
+
+            #usersTable tbody tr:hover {
+                background: #f0f5ff;
+            }
+
+        #usersTable tbody td {
+            padding: 12px 16px;
+            color: #334d6e;
+            vertical-align: middle;
+        }
+
+            #usersTable tbody td:last-child {
+                white-space: nowrap;
+            }
+
+            .btn-details, #usersTable tbody td a {
+                display: inline-block;
+                padding: 5px 13px;
+                border-radius: 3px;
+                font-size: 12px;
+                font-weight: 500;
+                text-decoration: none;
+                margin-right: 4px;
+                transition: background 0.15s, color 0.15s;
+                cursor: pointer;
+            }
+
+    .btn-details {
+        background: #e3edf9;
+        color: #1565c0 !important;
+        border: 1px solid #b3c9e8;
+    }
+
+        .btn-details:hover {
+            background: #1565c0;
+            color: #fff !important;
+        }
+
+    #usersTable tbody td a[href*="Edit"] {
+        background: #fff8e1;
+        color: #b45309 !important;
+        border: 1px solid #f5d97a;
+    }
+
+        #usersTable tbody td a[href*="Edit"]:hover {
+            background: #b45309;
+            color: #fff !important;
+        }
+
+    .btn-delete {
+        background: #fdecea;
+        color: #b91c1c !important;
+        border: 1px solid #f5b4b4;
+    }
+
+        .btn-delete:hover {
+            background: #b91c1c;
+            color: #fff !important;
+        }
+</style>
+
+@model IEnumerable<WebApplication1.Models.User>
+
+@{
+    ViewBag.Title = "Users";
+}
+
+<h2>Users</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { id = "btnCreate" })
+</p>
+
+<table id="usersTable">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Mobile</th>
+            <th>State</th>
+            <th>Hobbies</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr data-id="@item.Id">
+                <td>@item.Name</td>
+                <td>@item.Email</td>
+                <td>@item.Mobile</td>
+                <td>@(item.State != null ? item.State.Name : "")</td>
+                <td>@item.Hobbies</td>
+                <td>
+                    <a href="#" class="btn-details">Details</a>
+                    <a href="@Url.Action("Edit", new { id = item.Id })">Edit</a>
+                    <a href="#" class="btn-delete">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div id="detailsModalPlaceholder"></div>
+
+@section scripts{
+    <script>
+        $(function(){
+            $(document).on('click', '.btn-details', function(e){
+                e.preventDefault();
+                var id = $(this).closest('tr').data('id');
+                $.get('@Url.Action("Details")/'+id, function(html){
+                    $('#detailsModalPlaceholder').html(html);
+                    // show modal: support both Bootstrap 4 (jQuery plugin) and Bootstrap 5 (JS API)
+                    var modalEl = document.getElementById('detailsModal');
+                    if (modalEl) {
+                        if (typeof $.fn.modal === 'function') {
+                            $('#detailsModal').modal('show');
+                        } else if (window.bootstrap && typeof window.bootstrap.Modal === 'function') {
+                            var m = new window.bootstrap.Modal(modalEl);
+                            m.show();
+                        }
+                    }
+                });
+            });
+
+            $(document).on('click', '.btn-delete', function(e){
+                e.preventDefault();
+                if(!confirm('Are you sure to delete this user?')) return;
+                var id = $(this).closest('tr').data('id');
+                $.post('@Url.Action("Delete")', { id: id }, function(res){
+                    if(res.success) location.reload();
+                    else alert('Error deleting');
+                });
+            });
+        });
+    </script>
+}
